@@ -1,0 +1,25 @@
+<div style="margin-left: 3rem;">
+  <div style="display: inline-block">
+    <button type="submit" (click)="this.fetchData()">Get Stuff</button>
+    <button (click)="this.crash()">Crash</button>
+  </div>
+  <!--
+    *ngIf="(this.generics$ | async) as listData funciona da seguinte forma
+    *ngIf="(this.generics$ | async) faz o subscribe na view
+    as listData transforma o resultado do observable em uma variável pra ser usada
+    TODO async PIPE FAZ UM SUBSCRIBE
+    ENTÃO COMPONENTES FILHOS NÃO DEVEM DAR ASYNC NO MESMO OBSERVABLE
+    TODO SUBSCRIBE EXECUTA A REQUEST NO MOMENTO DA SUBSCRIÇÃO
+  -->
+  <div *ngIf="(this.generics$ | async) as listData; else loading">
+    <app-generic-list [list]="listData"></app-generic-list>
+    <span></span>
+  </div>
+  <ng-template #loading>
+    <div>
+      <p>
+        Carregando...
+      </p>
+    </div>
+  </ng-template>
+</div>
